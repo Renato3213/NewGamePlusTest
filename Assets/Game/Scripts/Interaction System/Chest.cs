@@ -26,4 +26,9 @@ public class Chest : MonoBehaviour, IInteractable
     {
         throw new System.NotImplementedException();
     }
+
+    public void OnEndInteraction()
+    {
+        throw new System.NotImplementedException();
+    }
 }

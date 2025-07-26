@@ -11,4 +11,9 @@ public class ItemData : ScriptableObject
 
     public Sprite ItemSprite => _itemSprite;
     [SerializeField] private Sprite _itemSprite;
+
+    public GameObject EmptyItem => _emptyItem;
+    [SerializeField] private GameObject _emptyItem;
+
+    public string ItemUID => this.name;
 }

@@ -40,6 +40,12 @@ public class Interactor : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         _interactionIndicator.SetActive(false);
+
+        IInteractable interactable;
+        if(collision.TryGetComponent<IInteractable>(out interactable))
+        {
+            interactable.OnEndInteraction();
+        }
     }
 
     private void OnDrawGizmosSelected()

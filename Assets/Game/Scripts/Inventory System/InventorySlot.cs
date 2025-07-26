@@ -7,6 +7,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     [SerializeField] private ItemData _itemData;
 
     public static Action OnItemInventoryDrop;
+
+
     public void OnDrop(PointerEventData eventData)
     {
         if (transform.childCount == 0)
@@ -17,6 +19,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             GetItemInformation(item.ItemData);
             item.ParentAfterDrag = transform;
             OnItemInventoryDrop?.Invoke();
+            Inventory.Instance.AddItem(_itemData);
         }
     }
 
