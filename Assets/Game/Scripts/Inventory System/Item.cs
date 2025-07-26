@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
-
+using TMPro;
 public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandler
 {
     public bool OnInventory { get { return _onInventory; } set { _onInventory = value; } } 
@@ -18,7 +18,8 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
 
     [SerializeField] private GameObject _informationPanel;
 
-
+    [SerializeField] private TextMeshProUGUI _informationTitle;
+    [SerializeField] private TextMeshProUGUI _informationDescription;
 
     private Transform _parentAfterDrag;
     public Transform ParentAfterDrag
@@ -56,6 +57,9 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
     public void InitializeItem()
     {
         _image.sprite = _itemData.ItemSprite;
+        _informationTitle.text = _itemData.Name;
+        _informationDescription.text = _itemData.Description;
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)
