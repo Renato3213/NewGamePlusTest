@@ -15,5 +15,14 @@ public class ItemData : ScriptableObject
     public GameObject EmptyItem => _emptyItem;
     [SerializeField] private GameObject _emptyItem;
 
+    public bool IsValuable => _isValuable; //if not valuable, consider consumable
+    [SerializeField] private bool _isValuable;
+
+    public int MinValue => _minValue;
+    [SerializeField] private int _minValue;
+
+    public int MaxValue => _maxValue;
+    [SerializeField] private int _maxValue;
+
     public string ItemUID => this.name;
 }

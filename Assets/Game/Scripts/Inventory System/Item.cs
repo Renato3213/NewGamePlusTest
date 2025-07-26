@@ -15,11 +15,15 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
     [SerializeField] private Image _isSelectedImage;
 
     [SerializeField] private Button _itemButton;
+    [SerializeField] private Button _useItemButton;
 
     [SerializeField] private GameObject _informationPanel;
 
     [SerializeField] private TextMeshProUGUI _informationTitle;
     [SerializeField] private TextMeshProUGUI _informationDescription;
+
+    public int Value { get { return _value; } set { _value = value; } } 
+    [SerializeField] private int _value;
 
     private Transform _parentAfterDrag;
     public Transform ParentAfterDrag
@@ -60,6 +64,20 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
         _informationTitle.text = _itemData.Name;
         _informationDescription.text = _itemData.Description;
 
+        if (_itemData.IsValuable)
+        {
+            _informationDescription.text = $"Worth {_value} Coins!";
+        }
+        else //consider consumable
+        {
+            _useItemButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void DiscardItem()
+    {
+        Inventory.Instance.RemoveItem(_itemData);
+        Destroy(gameObject);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

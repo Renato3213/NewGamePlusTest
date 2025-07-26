@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using static UnityEngine.Rendering.DebugUI;
+
 public class DroppedItemSlot : MonoBehaviour
 {
     [SerializeField] GameObject _panel;
@@ -36,14 +38,12 @@ public class DroppedItemSlot : MonoBehaviour
         if (_itemInSlot != null)
         {
             _itemInSlot = null;
-            Destroy(_droppedItem); //could be better, but i'm not better
+            Destroy(_droppedItem);
         }
     }
 
     public void CreateItemAndOpenPanel(ItemData data, GameObject go)
     {
-        _panel.SetActive(true);
-
         _droppedItem = go;
 
         if(_itemInSlot != null)
@@ -55,6 +55,14 @@ public class DroppedItemSlot : MonoBehaviour
         _itemInSlot = Instantiate(data.EmptyItem, _itemHolder.transform.position, Quaternion.identity, _itemHolder.transform);
         Item item = _itemInSlot.GetComponent<Item>();
         item.ItemData = data;
+
+        if (data.IsValuable) //to set value on creation
+        {
+            item.Value = UnityEngine.Random.Range(data.MinValue, data.MaxValue);
+            _itemDescription.text = $"Worth {item.Value} Coins!";
+        }
+
+        _panel.SetActive(true);
         item.InitializeItem();
     }
 }

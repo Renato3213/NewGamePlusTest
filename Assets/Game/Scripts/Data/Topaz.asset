@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04ed0f8b60fa07b499b0520956c34e31, type: 3}
-  m_Name: Ruby
+  m_Name: Topaz
   m_EditorClassIdentifier: 
-  _name: Ruby
+  _name: Topaz
   _description: valuable
-  _itemSprite: {fileID: 21300000, guid: 67d92be28ed43314bbaf848a1d873f6c, type: 3}
+  _itemSprite: {fileID: 21300000, guid: 7c317a7b1aef9e64e9ca3d82d64f843c, type: 3}
   _emptyItem: {fileID: 6142130924534675374, guid: 57130cc9739dbd245ae20196a5c6dd56, type: 3}
   _isValuable: 1
-  _minValue: 50
-  _maxValue: 90
+  _minValue: 40
+  _maxValue: 150
