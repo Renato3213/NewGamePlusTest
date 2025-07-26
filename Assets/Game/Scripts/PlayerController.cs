@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
+
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : MonoBehaviour
 {
+    public Rigidbody2D Rb => _rb;
+
     private Rigidbody2D _rb;
     private BoxCollider2D _boxCol;
 
@@ -31,9 +35,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _coyoteTime;
     float _coyoteTimer;
 
+    public bool Grounded => _grounded;
+
     bool _grounded;
 
+    public UnityEvent OnJump;
+
     #endregion
+
+    
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -44,7 +55,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _grounded = Physics2D.BoxCast(transform.position, _boxCol.size, 0, Vector2.down, _boxCol.bounds.extents.y + 0.2f, _groundLayer);
+        _grounded = Physics2D.BoxCast(transform.position, _boxCol.size, 0, Vector2.down, 0.1f, _groundLayer);
+
 
         HandleInput();
 
@@ -86,7 +98,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void HandleMovement()
     {
         _rb.linearVelocityX = _moveDirection.x * _moveSpeed;
@@ -94,6 +105,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         _rb.linearVelocityY = 0;
+        OnJump?.Invoke();
         _rb.AddForce(Vector2.up * _jumpStrenght, ForceMode2D.Impulse);
     }
 
