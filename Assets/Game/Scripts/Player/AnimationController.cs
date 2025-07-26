@@ -21,16 +21,16 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         _playerAnimator.SetBool("Grounded", _pc.Grounded);
-        _playerAnimator.SetBool("Moving", _pc.Rb.linearVelocityX != 0);
+        _playerAnimator.SetBool("Moving", _pc.MoveInput.x != 0);
 
         HandleSpriteFlip();
     }
 
     void HandleSpriteFlip()
     {
-        if(_pc.Rb.linearVelocityX != 0)
+        if(_pc.MoveInput.x != 0)
         {
-            _playerSpriteRenderer.flipX = _pc.Rb.linearVelocityX < 0;
+            _playerSpriteRenderer.flipX = _pc.MoveInput.x < 0;
         }
     }
 }

@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     #region Movement Session
 
     [SerializeField] float _moveSpeed;
+
+    public Vector2 MoveInput => _moveDirection; 
     private Vector2 _moveDirection;
 
     #endregion
@@ -52,7 +54,6 @@ public class PlayerController : MonoBehaviour
         _boxCol = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         _grounded = Physics2D.BoxCast(transform.position, _boxCol.size, 0, Vector2.down, 0.1f, _groundLayer);
@@ -90,7 +91,6 @@ public class PlayerController : MonoBehaviour
         if (_jumpBuffered && _readyToJump && (_grounded || _coyoteTimer > 0))
         {
             _coyoteTimer = 0;
-            //_jumpBufferTimer = 0;
             _jumpBuffered = false;
             _readyToJump = false;
             Jump();
