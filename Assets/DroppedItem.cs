@@ -5,6 +5,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
     public bool IsDropped { get; private set; }
 
+    public ItemData Data { get { return _data; } set { _data = value; } }
     [SerializeField] private ItemData _data;
     [SerializeField] private SpriteRenderer _sRenderer;
 
