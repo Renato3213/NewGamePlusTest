@@ -25,7 +25,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
     public bool CanInteract()
     {
-        return !IsDropped;
+        return IsDropped;
     }
 
     public void OnInteract()

@@ -23,7 +23,7 @@ public class Chest : MonoBehaviour, IInteractable
     private void Start()
     {
         ChestUID ??= GlobalHelper.GenerateUID(gameObject);
-        _itemsToSpawn = Random.Range(1, _maxItemsToSpawn + 1);
+        _itemsToSpawn = Random.Range(1, _maxItemsToSpawn);
         _sRenderer = GetComponent<SpriteRenderer>();
     }
 

@@ -44,7 +44,6 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
         set { _itemData = value; }
     }
 
-    public Action OnButtonClicked;
 
     private void Start()
     {
@@ -52,10 +51,20 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
 
         if (_itemButton != null)
         {
-            _itemButton.onClick.AddListener(OnItemClicked);
+            _itemButton.onClick.AddListener(OnItemSelected);
         }
 
 
+    }
+
+    void OnEnable()
+    {
+        Inventory.OnItemClicked += SelectItem;
+    }
+
+    void OnDisable()
+    {
+        Inventory.OnItemClicked -= SelectItem;
     }
 
     public void InitializeItem()
@@ -100,15 +109,27 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
         _image.raycastTarget = true;
     }
 
-    public void OnItemClicked()
+    void SelectItem(Item itemSelected)
     {
-        if (_itemData == null) return;
+        Debug.Log("aa");
+        if(itemSelected == this)
+        {
+            if (_itemData == null) return;
 
-        if (_onInventory)
-            _informationPanel.SetActive(!_informationPanel.activeSelf);
+            if (_onInventory)
+                _informationPanel.SetActive(!_informationPanel.activeSelf);
 
-        OnButtonClicked?.Invoke();
 
-        _isSelectedImage.gameObject.SetActive(!_isSelectedImage.gameObject.activeSelf);
+            _isSelectedImage.gameObject.SetActive(!_isSelectedImage.gameObject.activeSelf);
+        }
+        else
+        {
+            _informationPanel.SetActive(false);
+            _isSelectedImage.gameObject.SetActive(false);
+        }
+    }
+    public void OnItemSelected()
+    {
+        Inventory.OnItemClicked?.Invoke(this);
     }
 }

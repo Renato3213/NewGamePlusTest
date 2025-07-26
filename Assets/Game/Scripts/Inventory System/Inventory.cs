@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ public class Inventory : MonoBehaviour
             return _instance;
         }
     }
+
+    public static Action<Item> OnItemClicked;
 
     private void Awake()
     {

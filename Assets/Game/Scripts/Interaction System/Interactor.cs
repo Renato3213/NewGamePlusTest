@@ -24,7 +24,7 @@ public class Interactor : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
             IInteractable interactable = hitCollider.GetComponent<IInteractable>();
-            if (interactable != null)
+            if (interactable != null && interactable.CanInteract())
             {
                 interactable.OnInteract();
                 break;
