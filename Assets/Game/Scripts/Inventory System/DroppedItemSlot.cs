@@ -4,12 +4,16 @@ public class DroppedItemSlot : MonoBehaviour
 {
     [SerializeField] GameObject _panel;
     [SerializeField] RectTransform _itemHolder;
-    private GameObject _itemInSlot;
     [SerializeField] TextMeshProUGUI _itemTitle;
     [SerializeField] TextMeshProUGUI _itemDescription;
+    [SerializeField] GameObject _droppedItem;
+
+    private GameObject _itemInSlot;
+
     void OnEnable()
     {
         InventorySlot.OnItemInventoryDrop += ClosePanel;
+        InventorySlot.OnItemInventoryDrop += DestroyDroppedItem;
         DroppedItem.OnInteractionEnded += ClosePanel;
         DroppedItem.OnItemInteracted += CreateItemAndOpenPanel;
     }
@@ -17,6 +21,7 @@ public class DroppedItemSlot : MonoBehaviour
     private void OnDisable()
     {
         InventorySlot.OnItemInventoryDrop -= ClosePanel;
+        InventorySlot.OnItemInventoryDrop -= DestroyDroppedItem;
         DroppedItem.OnInteractionEnded -= ClosePanel;
         DroppedItem.OnItemInteracted -= CreateItemAndOpenPanel;
     }
@@ -26,9 +31,20 @@ public class DroppedItemSlot : MonoBehaviour
         _panel.SetActive(false);
     }
 
-    public void CreateItemAndOpenPanel(ItemData data)
+    void DestroyDroppedItem() //item is no longer dropped
+    {
+        if (_itemInSlot != null)
+        {
+            _itemInSlot = null;
+            Destroy(_droppedItem); //could be better, but i'm not better
+        }
+    }
+
+    public void CreateItemAndOpenPanel(ItemData data, GameObject go)
     {
         _panel.SetActive(true);
+
+        _droppedItem = go;
 
         if(_itemInSlot != null)
         {

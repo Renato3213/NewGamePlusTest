@@ -8,7 +8,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
     [SerializeField] private ItemData _data;
     [SerializeField] private SpriteRenderer _sRenderer;
 
-    public static Action<ItemData> OnItemInteracted;
+    public static Action<ItemData, GameObject> OnItemInteracted;
     public static Action OnInteractionEnded;
 
     void Start()
@@ -29,7 +29,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        OnItemInteracted?.Invoke(_data);
+        OnItemInteracted?.Invoke(_data, this.gameObject);
         IsDropped = false;
     }
 
