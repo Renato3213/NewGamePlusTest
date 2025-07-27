@@ -13,6 +13,7 @@ public class SaveSystem
         public PlayerSaveData PlayerData;
         public List<ChestSaveData> ChestsData;
         public List<InventorySlotSaveData> SlotSaveData;
+        public SceneSaveData SceneSaveData;
     }
 
     public static string SaveFileName()
@@ -47,6 +48,8 @@ public class SaveSystem
             slot.Save(ref data);
             _saveData.SlotSaveData.Add(data);
         }
+
+        GameManager.Instance.SceneData.Save(ref _saveData.SceneSaveData);
     }
 
     public static void Load()
@@ -74,5 +77,7 @@ public class SaveSystem
                               .FirstOrDefault(c => c.SlotUID == slotData.slotUID);
             slot?.Load(slotData);
         }
+
+        GameManager.Instance.SceneData.Load(_saveData.SceneSaveData);
     }
 }

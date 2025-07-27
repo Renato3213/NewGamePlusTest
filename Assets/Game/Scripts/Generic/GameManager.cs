@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
     public List<ItemData> allAvailableItems = new List<ItemData>();
     public List<InventorySlot> slots = new List<InventorySlot>();
 
+    public SceneData SceneData { get; set; }
+    public SceneLoader SceneLoader { get; set; }
     public PlayerController Player { get; set; }
     public HealthManager Health { get; set; }
     public List<Chest> Chests { get; set; }
