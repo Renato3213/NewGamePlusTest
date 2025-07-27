@@ -15,11 +15,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             GameObject dropped = eventData.pointerDrag;
             Item item = dropped.GetComponent<Item>();
-            item.OnInventory = true;
             GetItemInformation(item.ItemData);
             item.ParentAfterDrag = transform;
             OnItemInventoryDrop?.Invoke();
-            Inventory.Instance.AddItem(_itemData);
+
+            if (!item.OnInventory)
+            {
+                item.OnInventory = true;
+                Inventory.Instance.AddItem(_itemData);
+            }
         }
     }
 
