@@ -2518,7 +2518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 1, y: 0, z: 0}
   speed: 0.5
-  originalPos: {x: -50, y: 0}
+  originalPos: {x: -60, y: 0}
 --- !u!114 &706126996
 MonoBehaviour:
   m_ObjectHideFlags: 0
