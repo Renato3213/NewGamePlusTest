@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteractable
 {
     public bool IsOpened { get; private set; }
 
@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
     [SerializeField] private Sprite _openedSprite;
     private SpriteRenderer _sRenderer;
 
-    [SerializeField] private bool isWinCondition;
+    [SerializeField] private bool _isWinCondition;
 
     public static Action<bool> OnDoorOpened;
 
@@ -30,7 +30,7 @@ public class Door : MonoBehaviour
         IsOpened = true;
         _sRenderer.sprite = _openedSprite;
 
-        OnDoorOpened(isWinCondition);
+        OnDoorOpened?.Invoke(_isWinCondition);
     }
 
     public void OnEndInteraction()
