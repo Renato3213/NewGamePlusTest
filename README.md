@@ -11,7 +11,9 @@ collect as many valuables as you can before reaching the last room, while avoidi
 Known issues:
 
 -items won't dissapear when moving from one room to another.
+
 -On replay, game stops working properly.
+
 -items are flickering on the ground.
 
 
