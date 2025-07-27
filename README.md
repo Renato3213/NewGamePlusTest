@@ -1,0 +1,12 @@
+Renato Scatolin BGNS Task
+
+Game Build: https://drive.google.com/file/d/1hFkNs1ySyoArZsKRCj6ThB161odO4fJq/view?usp=sharing
+
+ThirdParty Assets Used: 
+
+Rustic UI Pixel Art by Chotto Inc: https://chottoinc.itch.io/rustic-ui-pixel-art
+Medieval Pixel Art Assets by Blackspire: https://assetstore.unity.com/packages/2d/environments/medieval-pixel-art-asset-free-130131
+Pixel Art Icon Pack - RPG by Cainos: https://assetstore.unity.com/packages/2d/gui/icons/pixel-art-icon-pack-rpg-158343
+Hero Knight - Pixel Art by Sven Thole: https://assetstore.unity.com/packages/2d/characters/hero-knight-pixel-art-165188
+
+all free to use.
