@@ -11,7 +11,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount == 0)
+        if (transform.childCount == 0) //ensures only one item can be in the slot
         {
             GameObject dropped = eventData.pointerDrag;
             Item item = dropped.GetComponent<Item>();
