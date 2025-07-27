@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,8 @@ public class SaveSystem
         public PlayerSaveData PlayerData;
         public List<ChestSaveData> ChestsData;
         public List<InventorySlotSaveData> SlotSaveData;
-        public SceneSaveData SceneSaveData;
+        public MapSaveData MapSaveData;
+        public FogSaveData FogSaveData;
     }
 
     public static string SaveFileName()
@@ -32,6 +34,8 @@ public class SaveSystem
     private static void HandleSaveData()
     {
         GameManager.Instance.Player.Save(ref _saveData.PlayerData);
+        GameManager.Instance.TransitionManager.Save(ref _saveData.MapSaveData);
+        GameManager.Instance.Fog.Save(ref _saveData.FogSaveData);
 
         _saveData.ChestsData = new List<ChestSaveData>();
         foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
@@ -48,8 +52,6 @@ public class SaveSystem
             slot.Save(ref data);
             _saveData.SlotSaveData.Add(data);
         }
-
-        GameManager.Instance.SceneData.Save(ref _saveData.SceneSaveData);
     }
 
     public static void Load()
@@ -62,8 +64,34 @@ public class SaveSystem
 
     private static void HandleLoadData()
     {
-        GameManager.Instance.Player.Load(_saveData.PlayerData);
+        //GameManager.Instance.Player.Load(_saveData.PlayerData);
+        //GameManager.Instance.TransitionManager.Load(_saveData.MapSaveData);
 
+        //foreach (var chestData in _saveData.ChestsData)
+        //{
+        //    Chest chest = GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None)
+        //                      .FirstOrDefault(c => c.ChestUID == chestData.ChestUID);
+        //    chest?.Load(chestData);
+        //}
+
+        //foreach (var slotData in _saveData.SlotSaveData)
+        //{
+        //    InventorySlot slot = GameObject.FindObjectsByType<InventorySlot>(FindObjectsSortMode.None)
+        //                      .FirstOrDefault(c => c.SlotUID == slotData.slotUID);
+        //    slot?.Load(slotData);
+        //}
+        GameManager.Instance.StartLoadRoutine();
+        
+    }
+
+    public static IEnumerator HandleLoadDataRoutine()//very poor solution for a problem
+    {
+        GameManager.Instance.TransitionManager.Load(_saveData.MapSaveData);
+
+        yield return new WaitForSeconds(0.75f);
+
+        GameManager.Instance.Player.Load(_saveData.PlayerData);
+        GameManager.Instance.Fog.Load(_saveData.FogSaveData);
         foreach (var chestData in _saveData.ChestsData)
         {
             Chest chest = GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None)
@@ -77,7 +105,5 @@ public class SaveSystem
                               .FirstOrDefault(c => c.SlotUID == slotData.slotUID);
             slot?.Load(slotData);
         }
-
-        GameManager.Instance.SceneData.Load(_saveData.SceneSaveData);
     }
 }

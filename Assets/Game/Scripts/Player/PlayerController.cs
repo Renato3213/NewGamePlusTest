@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance._canPlay) return;
+
         _grounded = Physics2D.BoxCast(transform.position, _boxCol.size, 0, Vector2.down, 0.1f, _groundLayer);
 
 
@@ -68,6 +70,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.Instance._canPlay) return;
+
         HandleMovement();
     }
 

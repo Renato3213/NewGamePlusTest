@@ -3,6 +3,7 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     [SerializeField] Canvas inventoryUI;
+    [SerializeField] GameObject menuUI;
 
     private void OnEnable()
     {
@@ -11,6 +12,8 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance._canPlay) return;
+
         HandleInput();
     }
 
@@ -19,6 +22,11 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleMenu();
         }
     }
 
@@ -30,5 +38,10 @@ public class UIController : MonoBehaviour
     void ToggleInventory(ItemData data, GameObject go) //just so i can open it through the same action
     {
         inventoryUI.enabled = !inventoryUI.enabled;
+    }
+
+    void ToggleMenu()
+    {
+        menuUI.SetActive(!menuUI.activeSelf);
     }
 }

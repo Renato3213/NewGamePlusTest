@@ -12,7 +12,7 @@ public class Door : MonoBehaviour, IInteractable
 
     [SerializeField] private bool _isWinCondition;
 
-    public static Action OnDoorOpened;
+    public static Action<bool> OnDoorOpened;
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class Door : MonoBehaviour, IInteractable
         IsOpened = true;
         _sRenderer.sprite = _openedSprite;
 
-        OnDoorOpened?.Invoke();
+        OnDoorOpened?.Invoke(_isWinCondition);
     }
 
     public void OnEndInteraction()

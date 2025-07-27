@@ -85,6 +85,7 @@ public class HealthManager : MonoBehaviour
         OnHealthChanged?.Invoke(0f);
         OnDeath?.Invoke();
 
+        GameManager.Instance.Lose();
 
         Debug.Log(gameObject.name + " dead");
     }
