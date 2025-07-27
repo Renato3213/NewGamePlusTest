@@ -130,16 +130,20 @@ public class PlayerController : MonoBehaviour
     public void Save(ref PlayerSaveData data)
     {
         data.Position = transform.position;
+        data.Health = GameManager.Instance.Health.CurrentHealth;
     }
 
     public void Load(PlayerSaveData data)
     {
         transform.position = data.Position;
+        GameManager.Instance.Health.CurrentHealth = data.Health;
     }
 
 }
 
+[System.Serializable]
 public struct PlayerSaveData
 {
     public Vector3 Position;
+    public int Health;
 }

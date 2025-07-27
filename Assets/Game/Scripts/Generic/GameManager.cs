@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +25,12 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
         }
     }
 
+    public List<ItemData> allAvailableItems = new List<ItemData>();
+    public List<InventorySlot> slots = new List<InventorySlot>();
+
     public PlayerController Player { get; set; }
+    public HealthManager Health { get; set; }
+    public List<Chest> Chests { get; set; }
 
     private TransitionManager _transitionMananger;
 
@@ -43,6 +49,17 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
         
     }
 
-  
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SaveSystem.Save();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SaveSystem.Load();
+        }
+    }
 
 }

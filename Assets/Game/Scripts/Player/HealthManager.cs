@@ -12,7 +12,12 @@ public class HealthManager : MonoBehaviour
 
     [SerializeField] private int _maxHealth = 3;
 
-    public int CurrentHealth => _currentHealth;
+    public int CurrentHealth { get { return _currentHealth; } 
+        set 
+        { 
+            ChangeHealthTo(value); 
+
+        }}
     public int MaxHealth => _maxHealth;
     public bool IsDead => _isDead;
 
@@ -29,6 +34,7 @@ public class HealthManager : MonoBehaviour
     {
         _currentHealth = _maxHealth;
         Item.OnUseHealthPotion += Heal;
+        GameManager.Instance.Health = this;
     }
 
 
@@ -57,6 +63,19 @@ public class HealthManager : MonoBehaviour
         _hearts[_currentHealth-1].color = Color.white;
         OnHealthChanged?.Invoke(_currentHealth / _maxHealth);
         OnHealed?.Invoke();
+    }
+
+    void ChangeHealthTo(int value)
+    {
+        _currentHealth = value;
+
+        for (int i = 0; i < _hearts.Count; i++)
+        {
+            if(i > value - 1)
+            {
+                _hearts[i].color = Color.black;
+            }
+        }
     }
 
     private void Die()

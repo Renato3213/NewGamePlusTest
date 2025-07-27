@@ -8,7 +8,26 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public static Action OnItemInventoryDrop;
 
+    public int SlotIndex => _slotIndex;
+    [SerializeField] private int _slotIndex;
 
+    void OnEnable()
+    {
+        Item.OnDragStart += CheckChildren;
+    }
+
+    void OnDisable()
+    {
+        Item.OnDragStart -= CheckChildren;
+    }
+
+    void CheckChildren()
+    {
+        if (transform.childCount == 0)
+        {
+            _itemData = null;
+        }
+    }
     public void OnDrop(PointerEventData eventData)
     {
         if (transform.childCount == 0) //ensures only one item can be in the slot

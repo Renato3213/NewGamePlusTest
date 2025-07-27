@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private List<ItemData> _items = new List<ItemData>();
     [SerializeField] private int _maxSlots;
     [SerializeField] private RectTransform _inventoryContent;
-    [SerializeField] private List<string> _itemNames = new List<string>(); // List to know the names of items
+    [SerializeField] private List<string> _itemNames = new List<string>();
+    [SerializeField] private List<int> _itemSlots = new List<int>();
 
     private static Inventory _instance;
 
@@ -24,6 +27,11 @@ public class Inventory : MonoBehaviour
     public List<string> ItemNames
     {
         get { return _itemNames; }
+    }
+
+    public List<int> ItemSlots
+    {
+        get { return _itemSlots; }
     }
 
     public static Inventory Instance
@@ -87,4 +95,5 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
 }

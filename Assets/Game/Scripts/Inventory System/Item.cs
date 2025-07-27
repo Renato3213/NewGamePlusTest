@@ -45,6 +45,7 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
     }
 
     public static Action OnUseHealthPotion;
+    public static Action OnDragStart;
 
     private void Start()
     {
@@ -102,6 +103,7 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         _image.raycastTarget = false;
+        OnDragStart?.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData)
