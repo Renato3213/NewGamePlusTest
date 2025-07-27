@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UIElements;
+using System;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class TransitionManager : MonoBehaviour
 
     [SerializeField] private Transform _cameraConfiner;
 
+    public static Action OnMapLoaded;
+
     private void Awake()
     {
         GameManager.Instance.TransitionManager = this;
@@ -38,13 +41,20 @@ public class TransitionManager : MonoBehaviour
         Door.OnDoorOpened -= StartSceneTransition;
     }
 
-    public void StartSceneTransition()
+    public void StartSceneTransition(bool isWin)
     {
         if (isTransitioning) return;
 
-        transitionPanel.localPosition = leftPosition;
-        isTransitioning = true;
-        StartCoroutine(TransitionRoutine());
+        if (!isWin)
+        {
+            transitionPanel.localPosition = leftPosition;
+            isTransitioning = true;
+            StartCoroutine(TransitionRoutine());
+        }
+        else
+        {
+            GameManager.Instance.Win();
+        }
     }
 
     private IEnumerator TransitionRoutine()
@@ -63,6 +73,7 @@ public class TransitionManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        OnMapLoaded.Invoke();
         yield return MovePanelTo(rightPosition);
 
         transitionPanel.localPosition = leftPosition;

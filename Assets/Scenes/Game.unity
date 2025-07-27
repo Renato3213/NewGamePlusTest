@@ -2041,6 +2041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 1, y: 0, z: 0}
   speed: 0.02
+  originalPos: {x: -50, y: 0}
 --- !u!1 &710201703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2674,7 +2675,8 @@ MonoBehaviour:
   rightPosition: {x: 3000, y: 0, z: 0}
   _mapPrefabs:
   - {fileID: 8806970948050371054, guid: 8128d0cc9a5da9646b882edf8fb646eb, type: 3}
-  - {fileID: 8806970948050371054, guid: 9d3f44a3cda01124a9c41e78920a6ea1, type: 3}
+  - {fileID: 8806970948050371054, guid: 60b70aa2c88222249a8b3c45374de54f, type: 3}
+  - {fileID: 8806970948050371054, guid: 145371fdce77dbc42a045f2299509799, type: 3}
   _currentMap: {fileID: 918883060}
   _currentMapIndex: 0
   _cameraConfiner: {fileID: 640826023}

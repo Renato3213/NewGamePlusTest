@@ -51,6 +51,11 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
         
     }
 
+    public void Win()
+    {
+
+    }
+
     public void SaveButton()
     {
         SaveSystem.Save();

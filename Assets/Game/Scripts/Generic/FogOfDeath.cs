@@ -4,11 +4,22 @@ public class FogOfDeath : MonoBehaviour
 {
     [SerializeField] Vector3 direction;
     [SerializeField] float speed;
-
+    [SerializeField] Vector2 originalPos;
     private void Awake()
     {
         GameManager.Instance.Fog = this;
     }
+
+    private void OnEnable()
+    {
+        TransitionManager.OnMapLoaded += ResetFog;
+    }
+
+    private void OnDisable()
+    {
+        TransitionManager.OnMapLoaded -= ResetFog;
+    }
+
     void FixedUpdate()
     {
         transform.Translate(direction * speed);
@@ -22,6 +33,11 @@ public class FogOfDeath : MonoBehaviour
             damageable.TakeDamage(3, 0f);
         }
         
+    }
+
+    void ResetFog()
+    {
+        transform.position = originalPos;
     }
 
     public void Save(ref FogSaveData data)
