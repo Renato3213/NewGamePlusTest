@@ -1,6 +1,6 @@
 Renato Scatolin BGNS Task
 
-Game Build: https://drive.google.com/file/d/1hFkNs1ySyoArZsKRCj6ThB161odO4fJq/view?usp=sharing
+Game Build: https://drive.google.com/file/d/1CPKmr6ZdjRvyRzyV49BLDRvR3iqkzrK5/view?usp=sharing
 
 ThirdParty Assets Used: 
 
