@@ -12,7 +12,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     public string SlotUID => _slotUID;
     [SerializeField] private string _slotUID;
 
+    public int CurrentValue => _currentItemValue;
     int _currentItemValue;
+
+    void Awake()
+    {
+        GameManager.Instance.InventorySlots.Add(this);
+    }
 
     void OnEnable()
     {

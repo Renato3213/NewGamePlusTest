@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance._canPlay) return;
+
         HandleInput();
     }
 

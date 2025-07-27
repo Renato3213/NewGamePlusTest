@@ -10,6 +10,7 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance._canPlay) return;
 
         if (Input.GetKeyDown(KeyCode.E))
         {

@@ -25,16 +25,18 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
         }
     }
 
-    public List<ItemData> allAvailableItems = new List<ItemData>();
-    public List<InventorySlot> slots = new List<InventorySlot>();
-
     public PlayerController Player { get; set; }
     public FogOfDeath Fog { get; set; }
     public Map Map { get; set; }
     public TransitionManager TransitionManager {get; set;}
     public HealthManager Health { get; set; }
-    public List<Chest> Chests { get; set; }
+    public List<InventorySlot> InventorySlots { get { return _inventorySlots; } set { _inventorySlots = value; } }
+    [SerializeField] private List<InventorySlot> _inventorySlots;
 
+    [SerializeField] GameObject _winScreen;
+    [SerializeField] GameObject _loseScreen;
+
+    public bool _canPlay = true;
 
     public void Awake()
     {
@@ -53,7 +55,20 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
 
     public void Win()
     {
+        _winScreen.SetActive(true);
+        _canPlay = false;
+    }
 
+    public void Lose()
+    {
+        _loseScreen.SetActive(true);
+        _canPlay = false;
+    }
+
+    public void ReplayButton()
+    {
+        _canPlay = true;
+        SceneManager.LoadScene("Game");
     }
 
     public void SaveButton()
