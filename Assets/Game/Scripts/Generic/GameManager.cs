@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
     public List<InventorySlot> slots = new List<InventorySlot>();
 
     public PlayerController Player { get; set; }
+    public FogOfDeath Fog { get; set; }
     public Map Map { get; set; }
     public TransitionManager TransitionManager {get; set;}
     public HealthManager Health { get; set; }

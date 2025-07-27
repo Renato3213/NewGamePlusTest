@@ -2003,6 +2003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 706126994}
+  - component: {fileID: 706126995}
   m_Layer: 0
   m_Name: Fog
   m_TagString: Untagged
@@ -2019,13 +2020,27 @@ Transform:
   m_GameObject: {fileID: 706126993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.15, y: 0, z: 0}
+  m_LocalPosition: {x: -43.69, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1184122163}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &706126995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706126993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b94867d97e6fc4a95cfe71f4df5320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0, z: 0}
+  speed: 0.02
 --- !u!1 &710201703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2780,8 +2795,8 @@ Transform:
   m_GameObject: {fileID: 1184122162}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.8246, y: 0, z: -0.06555094}
-  m_LocalScale: {x: 34.650135, y: 16.8568, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 60.78673, y: 34.56487, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 706126994}
@@ -2816,7 +2831,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

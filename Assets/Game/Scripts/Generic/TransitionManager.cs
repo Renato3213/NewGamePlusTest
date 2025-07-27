@@ -79,7 +79,7 @@ public class TransitionManager : MonoBehaviour
         Destroy(oldMap);
         _currentMap = Instantiate(_mapPrefabs[data.MapIndex], Vector2.zero, Quaternion.identity);
         _cameraConfiner.position = _currentMap.transform.position;
-        GameManager.Instance.Player.transform.position = _currentMap.GetComponent<Map>().SpawnPoint.position;
+        //GameManager.Instance.Player.transform.position = _currentMap.GetComponent<Map>().SpawnPoint.position;
         _currentMapIndex = data.MapIndex;
 
         yield return new WaitForSeconds(0.5f);

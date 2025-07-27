@@ -4,6 +4,11 @@ public class FogOfDeath : MonoBehaviour
 {
     [SerializeField] Vector3 direction;
     [SerializeField] float speed;
+
+    private void Awake()
+    {
+        GameManager.Instance.Fog = this;
+    }
     void FixedUpdate()
     {
         transform.Translate(direction * speed);
@@ -18,4 +23,24 @@ public class FogOfDeath : MonoBehaviour
         }
         
     }
+
+    public void Save(ref FogSaveData data)
+    {
+        data.Direction = direction;
+        data.Position = transform.position;
+    }
+
+    public void Load(FogSaveData data)
+    {
+        direction = data.Direction;
+        transform.position = data.Position;
+    }
+}
+
+[System.Serializable]
+public struct FogSaveData
+{
+    public Vector3 Direction;
+    public Vector3 Position;
+
 }

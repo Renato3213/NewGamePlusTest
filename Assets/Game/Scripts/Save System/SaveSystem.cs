@@ -15,6 +15,7 @@ public class SaveSystem
         public List<ChestSaveData> ChestsData;
         public List<InventorySlotSaveData> SlotSaveData;
         public MapSaveData MapSaveData;
+        public FogSaveData FogSaveData;
     }
 
     public static string SaveFileName()
@@ -34,6 +35,7 @@ public class SaveSystem
     {
         GameManager.Instance.Player.Save(ref _saveData.PlayerData);
         GameManager.Instance.TransitionManager.Save(ref _saveData.MapSaveData);
+        GameManager.Instance.Fog.Save(ref _saveData.FogSaveData);
 
         _saveData.ChestsData = new List<ChestSaveData>();
         foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
@@ -82,15 +84,14 @@ public class SaveSystem
         
     }
 
-    public static IEnumerator HandleLoadDataRoutine()
+    public static IEnumerator HandleLoadDataRoutine()//very poor solution for a problem
     {
         GameManager.Instance.TransitionManager.Load(_saveData.MapSaveData);
-        Debug.Log("A");
 
         yield return new WaitForSeconds(0.75f);
 
-        Debug.Log("B");
         GameManager.Instance.Player.Load(_saveData.PlayerData);
+        GameManager.Instance.Fog.Load(_saveData.FogSaveData);
         foreach (var chestData in _saveData.ChestsData)
         {
             Chest chest = GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None)
