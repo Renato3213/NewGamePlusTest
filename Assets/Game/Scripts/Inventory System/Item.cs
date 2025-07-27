@@ -44,6 +44,7 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
         set { _itemData = value; }
     }
 
+    public static Action OnUseHealthPotion;
 
     private void Start()
     {
@@ -87,6 +88,11 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
     {
         Inventory.Instance.RemoveItem(_itemData);
         Destroy(gameObject);
+    }
+
+    public void UseItem() //since I only want one consumable for this project, this will do the job, even if its not the best approach
+    {
+        OnUseHealthPotion?.Invoke();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
