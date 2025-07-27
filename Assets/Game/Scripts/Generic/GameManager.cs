@@ -29,10 +29,11 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
     public List<InventorySlot> slots = new List<InventorySlot>();
 
     public PlayerController Player { get; set; }
+    public Map Map { get; set; }
+    public TransitionManager TransitionManager {get; set;}
     public HealthManager Health { get; set; }
     public List<Chest> Chests { get; set; }
 
-    private TransitionManager _transitionMananger;
 
     public void Awake()
     {
@@ -49,17 +50,24 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
         
     }
 
-    private void Update()
+    public void SaveButton()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            SaveSystem.Save();
-        }
+        SaveSystem.Save();
+    }
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SaveSystem.Load();
-        }
+    public void LoadButton()
+    {
+        SaveSystem.Load();
+    }
+
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
+
+    public void StartLoadRoutine()
+    {
+        StartCoroutine(SaveSystem.HandleLoadDataRoutine());
     }
 
 }

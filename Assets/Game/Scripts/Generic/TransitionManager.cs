@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UIElements;
 
 public class TransitionManager : MonoBehaviour
 {
     [SerializeField] private Transform transitionPanel;
     [SerializeField] private float transitionSpeed = 1f;
-    [SerializeField] private Color transitionColor = Color.black;
 
     [SerializeField] private Vector3 leftPosition = new Vector3(-1.5f, 0, 0);
     [SerializeField] private Vector3 centerPosition = new Vector3(0, 0, 0);
@@ -15,10 +14,16 @@ public class TransitionManager : MonoBehaviour
     private bool isTransitioning = false;
     private bool newSceneLoaded = false;
 
+    [SerializeField] private GameObject[] _mapPrefabs;
+    [SerializeField] private GameObject _currentMap;
+    [SerializeField] private int _currentMapIndex;
+
+    [SerializeField] private Transform _cameraConfiner;
+
     private void Awake()
     {
+        GameManager.Instance.TransitionManager = this;
         transitionPanel.gameObject.SetActive(true);
-
         transitionPanel.localPosition = centerPosition;
         StartCoroutine(MovePanelTo(rightPosition));
     }
@@ -33,7 +38,6 @@ public class TransitionManager : MonoBehaviour
         Door.OnDoorOpened -= StartSceneTransition;
     }
 
-    [ContextMenu("Teste")]
     public void StartSceneTransition()
     {
         if (isTransitioning) return;
@@ -47,24 +51,43 @@ public class TransitionManager : MonoBehaviour
     {
         yield return MovePanelTo(centerPosition);
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        asyncLoad.allowSceneActivation = false;
+        yield return new WaitForSeconds(0.5f);
 
-        while (!asyncLoad.isDone)
-        {
-            if (asyncLoad.progress >= 0.9f)
-            {
-                asyncLoad.allowSceneActivation = true;
-                newSceneLoaded = true;
-            }
-            yield return null;
-        }
+        GameObject oldMap = _currentMap;
+        Destroy(oldMap);
+        _currentMap = Instantiate(_mapPrefabs[_currentMapIndex + 1], Vector2.zero, Quaternion.identity);
+        _currentMapIndex++;
+        _cameraConfiner.position = _currentMap.transform.position;
+        GameManager.Instance.Player.transform.position = _currentMap.GetComponent<Map>().SpawnPoint.position;
+
+
+        yield return new WaitForSeconds(0.5f);
 
         yield return MovePanelTo(rightPosition);
 
         transitionPanel.localPosition = leftPosition;
         isTransitioning = false;
-        newSceneLoaded = false;
+    }
+
+    private IEnumerator LoadMapRoutine(MapSaveData data)
+    {
+        yield return MovePanelTo(centerPosition);
+
+        yield return new WaitForSeconds(0.5f);
+
+        GameObject oldMap = _currentMap;
+        Destroy(oldMap);
+        _currentMap = Instantiate(_mapPrefabs[data.MapIndex], Vector2.zero, Quaternion.identity);
+        _cameraConfiner.position = _currentMap.transform.position;
+        GameManager.Instance.Player.transform.position = _currentMap.GetComponent<Map>().SpawnPoint.position;
+        _currentMapIndex = data.MapIndex;
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return MovePanelTo(rightPosition);
+
+        transitionPanel.localPosition = leftPosition;
+        isTransitioning = false;
     }
 
     private IEnumerator MovePanelTo(Vector3 targetPosition)
@@ -87,4 +110,26 @@ public class TransitionManager : MonoBehaviour
 
         transitionPanel.localPosition = targetPosition;
     }
+
+    public void Save(ref MapSaveData data)
+    {
+        data.MapIndex = _currentMapIndex;
+    }
+
+    public void Load(MapSaveData data)
+    {
+        if (isTransitioning) return;
+
+        transitionPanel.localPosition = leftPosition;
+        isTransitioning = true;
+        StartCoroutine(LoadMapRoutine(data));
+    }
+
+
+}
+
+[System.Serializable]
+public struct MapSaveData
+{
+    public int MapIndex;
 }
