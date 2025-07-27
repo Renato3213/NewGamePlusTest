@@ -63,6 +63,7 @@ public class TransitionManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        OnMapLoaded.Invoke();
         GameObject oldMap = _currentMap;
         Destroy(oldMap);
         _currentMap = Instantiate(_mapPrefabs[_currentMapIndex + 1], Vector2.zero, Quaternion.identity);
@@ -73,7 +74,6 @@ public class TransitionManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        OnMapLoaded.Invoke();
         yield return MovePanelTo(rightPosition);
 
         transitionPanel.localPosition = leftPosition;
