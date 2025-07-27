@@ -64,4 +64,25 @@ public class Chest : MonoBehaviour, IInteractable
     {
 
     }
+
+    public void Save(ref ChestSaveData data)
+    {
+        data.IsOpened = IsOpened;
+    }
+
+    public void Load(ChestSaveData data)
+    {
+        IsOpened = data.IsOpened;
+
+        if (IsOpened)
+        {
+            _sRenderer.sprite = _openedSprite;
+        }
+    }
+}
+
+[System.Serializable]
+public struct ChestSaveData
+{
+    public bool IsOpened;
 }
