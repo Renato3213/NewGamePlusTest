@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         _boxCol = GetComponent<BoxCollider2D>();
+
+        GameManager.Instance.Player = this;
     }
 
     void Update()
@@ -124,4 +126,20 @@ public class PlayerController : MonoBehaviour
     {
         _jumpBuffered = false;
     }
+
+    public void Save(ref PlayerSaveData data)
+    {
+        data.Position = transform.position;
+    }
+
+    public void Load(PlayerSaveData data)
+    {
+        transform.position = data.Position;
+    }
+
+}
+
+public struct PlayerSaveData
+{
+    public Vector3 Position;
 }
