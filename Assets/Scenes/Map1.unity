@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487bd703b960e8f4bbb8882a5f9cb00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 545064901}
+  inventoryUI: {fileID: 1456085689}
 --- !u!1 &340849070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &545064902
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 599425923}
   - component: {fileID: 599425922}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: DroppedItemSlotPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2408,12 +2408,12 @@ GameObject:
   - component: {fileID: 1456085692}
   - component: {fileID: 1456085691}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: InventoryUIPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1456085690
 RectTransform:
   m_ObjectHideFlags: 0
