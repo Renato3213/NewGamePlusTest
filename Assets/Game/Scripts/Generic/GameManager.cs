@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour //game manager is set to run before anything else
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
 
     public PlayerController Player { get; set; }
 
+    private TransitionManager _transitionMananger;
 
     public void Awake()
     {
@@ -38,21 +40,9 @@ public class GameManager : MonoBehaviour //game manager is set to run before any
             Destroy(gameObject);
         }
 
-        Door.OnDoorOpened += HandleDoor;
+        
     }
 
-    void HandleDoor(bool isWinCondition)
-    {
-        if (isWinCondition)
-        {
-            //win
-        }
-
-        else
-        {
-            //change scene
-        }
-    }
-
+  
 
 }

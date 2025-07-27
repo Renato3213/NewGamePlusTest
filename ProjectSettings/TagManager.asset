@@ -62,5 +62,8 @@ TagManager:
   - name: Fog
     uniqueID: 1167581779
     locked: 0
+  - name: Transition
+    uniqueID: 3474862009
+    locked: 0
   m_RenderingLayers:
   - Default
