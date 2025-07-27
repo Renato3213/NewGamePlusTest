@@ -16,6 +16,7 @@ Known issues:
 
 -items are flickering on the ground.
 
+-Load sometimes spawns you inside walls or below floor
 
 ThirdParty Assets Used: 
 
