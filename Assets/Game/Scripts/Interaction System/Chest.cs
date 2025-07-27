@@ -20,7 +20,7 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private float _minAngleToThrow, _maxAngleToThrow;
 
 
-    private void Start()
+    private void Awake()
     {
         ChestUID ??= GlobalHelper.GenerateUID(gameObject);
         _itemsToSpawn = Random.Range(1, _maxItemsToSpawn);
@@ -68,6 +68,7 @@ public class Chest : MonoBehaviour, IInteractable
     public void Save(ref ChestSaveData data)
     {
         data.IsOpened = IsOpened;
+        data.ChestUID = ChestUID;
     }
 
     public void Load(ChestSaveData data)
@@ -85,4 +86,5 @@ public class Chest : MonoBehaviour, IInteractable
 public struct ChestSaveData
 {
     public bool IsOpened;
+    public string ChestUID;
 }

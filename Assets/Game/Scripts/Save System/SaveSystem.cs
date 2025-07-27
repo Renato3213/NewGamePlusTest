@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SaveSystem
 {
@@ -9,6 +11,7 @@ public class SaveSystem
     public struct SaveData
     {
         public PlayerSaveData PlayerData;
+        public List<ChestSaveData> ChestsData;
     }
 
     public static string SaveFileName()
@@ -27,6 +30,14 @@ public class SaveSystem
     private static void HandleSaveData()
     {
         GameManager.Instance.Player.Save(ref _saveData.PlayerData);
+
+        _saveData.ChestsData = new List<ChestSaveData>();
+        foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
+        {
+            ChestSaveData data = new ChestSaveData();
+            chest.Save(ref data);
+            _saveData.ChestsData.Add(data);
+        }
     }
 
     public static void Load()
@@ -40,5 +51,12 @@ public class SaveSystem
     private static void HandleLoadData()
     {
         GameManager.Instance.Player.Load(_saveData.PlayerData);
+
+        foreach (var chestData in _saveData.ChestsData)
+        {
+            Chest chest = GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None)
+                              .FirstOrDefault(c => c.ChestUID == chestData.ChestUID);
+            chest?.Load(chestData);
+        }
     }
 }
