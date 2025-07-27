@@ -47,6 +47,9 @@ TagManager:
   - name: Platforms
     uniqueID: 1115875883
     locked: 0
+  - name: Props
+    uniqueID: 432216565
+    locked: 0
   - name: Interactables
     uniqueID: 2553685415
     locked: 0
