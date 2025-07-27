@@ -8,39 +8,42 @@ public class HealthManager : MonoBehaviour
     [System.Serializable]
     public class HealthEvent : UnityEvent<float> { }
 
-    [SerializeField] private int maxHealth = 3;
+    [SerializeField] List<Image> _hearts;
 
-    public int CurrentHealth => currentHealth;
-    public int MaxHealth => maxHealth;
-    public bool IsDead => isDead;
+    [SerializeField] private int _maxHealth = 3;
+
+    public int CurrentHealth => _currentHealth;
+    public int MaxHealth => _maxHealth;
+    public bool IsDead => _isDead;
 
     public HealthEvent OnHealthChanged;
     public UnityEvent OnDeath;
     public UnityEvent OnDamageTaken;
     public UnityEvent OnHealed;
 
-    private int currentHealth;
-    private float timeSinceLastDamage;
-    private bool isDead = false;
+    private int _currentHealth;
+    private float _timeSinceLastDamage;
+    private bool _isDead = false;
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        _currentHealth = _maxHealth;
         Item.OnUseHealthPotion += Heal;
     }
 
 
     public void TakeDamage(int amount)
     {
-        if (isDead) return;
+        if (_isDead) return;
 
-        currentHealth -= amount;
-        timeSinceLastDamage = 0f;
+        _hearts[_currentHealth-1].color = Color.black;
+        _currentHealth -= amount;
+        _timeSinceLastDamage = 0f;
 
-        OnHealthChanged?.Invoke(currentHealth / maxHealth);
+        OnHealthChanged?.Invoke(_currentHealth / _maxHealth);
         OnDamageTaken?.Invoke();
 
-        if (currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             Die();
         }
@@ -48,17 +51,18 @@ public class HealthManager : MonoBehaviour
 
     public void Heal()
     {
-        if (isDead) return;
+        if (_isDead) return;
 
-        currentHealth = Mathf.Min(currentHealth + 1, maxHealth);
-        OnHealthChanged?.Invoke(currentHealth / maxHealth);
+        _currentHealth = Mathf.Min(_currentHealth + 1, _maxHealth);
+        _hearts[_currentHealth-1].color = Color.white;
+        OnHealthChanged?.Invoke(_currentHealth / _maxHealth);
         OnHealed?.Invoke();
     }
 
     private void Die()
     {
-        isDead = true;
-        currentHealth = 0;
+        _isDead = true;
+        _currentHealth = 0;
         OnHealthChanged?.Invoke(0f);
         OnDeath?.Invoke();
 

@@ -3820,7 +3820,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd51c2435f888c44897c1f5a87217af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  _hearts:
+  - {fileID: 844934536}
+  - {fileID: 1110552645}
+  - {fileID: 1851358544}
+  _maxHealth: 3
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
