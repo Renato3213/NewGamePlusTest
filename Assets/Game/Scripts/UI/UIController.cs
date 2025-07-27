@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] GameObject inventoryUI;
+    [SerializeField] Canvas inventoryUI;
 
     private void OnEnable()
     {
@@ -24,11 +24,11 @@ public class UIController : MonoBehaviour
 
     void ToggleInventory()
     {
-        inventoryUI.SetActive(!inventoryUI.activeSelf);
+        inventoryUI.enabled = !inventoryUI.enabled;
     }
 
     void ToggleInventory(ItemData data, GameObject go) //just so i can open it through the same action
     {
-        inventoryUI.SetActive(!inventoryUI.activeSelf);
+        inventoryUI.enabled = !inventoryUI.enabled;
     }
 }

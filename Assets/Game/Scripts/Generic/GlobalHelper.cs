@@ -6,4 +6,9 @@ public static class GlobalHelper
     {
         return $"{obj.scene.name}_{obj.transform.position.x}_{obj.transform.position.y}";
     }
+
+    public static string GenerateUID(RectTransform obj)
+    {
+        return $"{obj.gameObject.scene.name}_{obj.position.x}_{obj.position.y}";
+    }
 }

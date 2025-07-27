@@ -12,6 +12,7 @@ public class SaveSystem
     {
         public PlayerSaveData PlayerData;
         public List<ChestSaveData> ChestsData;
+        public List<InventorySlotSaveData> SlotSaveData;
     }
 
     public static string SaveFileName()
@@ -38,6 +39,14 @@ public class SaveSystem
             chest.Save(ref data);
             _saveData.ChestsData.Add(data);
         }
+
+        _saveData.SlotSaveData = new List<InventorySlotSaveData>();
+        foreach (InventorySlot slot in GameObject.FindObjectsByType<InventorySlot>(FindObjectsSortMode.None))
+        {
+            InventorySlotSaveData data = new InventorySlotSaveData();
+            slot.Save(ref data);
+            _saveData.SlotSaveData.Add(data);
+        }
     }
 
     public static void Load()
@@ -57,6 +66,13 @@ public class SaveSystem
             Chest chest = GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None)
                               .FirstOrDefault(c => c.ChestUID == chestData.ChestUID);
             chest?.Load(chestData);
+        }
+
+        foreach (var slotData in _saveData.SlotSaveData)
+        {
+            InventorySlot slot = GameObject.FindObjectsByType<InventorySlot>(FindObjectsSortMode.None)
+                              .FirstOrDefault(c => c.SlotUID == slotData.slotUID);
+            slot?.Load(slotData);
         }
     }
 }
