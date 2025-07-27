@@ -26,6 +26,7 @@ public class HealthManager : MonoBehaviour
     private void Awake()
     {
         currentHealth = maxHealth;
+        Item.OnUseHealthPotion += Heal;
     }
 
 
@@ -45,11 +46,11 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    public void Heal(int amount)
+    public void Heal()
     {
         if (isDead) return;
 
-        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        currentHealth = Mathf.Min(currentHealth + 1, maxHealth);
         OnHealthChanged?.Invoke(currentHealth / maxHealth);
         OnHealed?.Invoke();
     }

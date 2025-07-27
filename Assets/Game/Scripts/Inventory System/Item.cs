@@ -93,6 +93,7 @@ public class Item : MonoBehaviour, IBeginDragHandler,IDragHandler ,IEndDragHandl
     public void UseItem() //since I only want one consumable for this project, this will do the job, even if its not the best approach
     {
         OnUseHealthPotion?.Invoke();
+        DiscardItem();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
